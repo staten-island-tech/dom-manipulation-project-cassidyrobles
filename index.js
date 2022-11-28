@@ -9,6 +9,7 @@ const DOMselectors = {
   display: document.querySelector(".display"),
   remove: document.querySelector(".remove"),
   displayCard: document.querySelector(".display-card"),
+  removebtn: document.querySelectorAll(".removebtn"),
 };
 
 function cardThing() {
@@ -28,22 +29,43 @@ if(
 
   DOMselectors.display.insertAdjacentHTML(
     "afterend", 
-    `<div class= "display-card" id="display-card-${count}"> <img class="display-img" src="${albumCover}"/> <h2 class="display-artist">${artist}</h2> <h3 class="display-album">${title}</h3> <button id="btn-${count}">Remove Album</button> </div>`
+    `<div class= "display-card" id="display-card"> 
+    <img class="display-img" src="${albumCover}"/>
+     <h2 class="display-artist">${artist}</h2>
+      <h3 class="display-album">${title}</h3> 
+      <button class="removebtn">Remove Album</button> </div>`
   );
-  document.querySelector(`#btn-${count}`).addEventListener("click", removeCardThing);
+
   clear();
 
-  count= count +1;
 }
+DOMselectors.btn.addEventListener("click",cardThing );
 
-DOMselectors.btn.addEventListener("click", cardThing);
 
 
-function removeCardThing(event){
-let btn = event.target;
-let counter = btn.id.substring(4);
-document.querySelector(`#display-card-${counter}`).remove();
+//DOMselectors.removebtn= document.querySelectorAll(".removebtn");
+DOMselectors.removebtn.forEach((button) =>
+button.addEventListener("click", function () {
+  this.parentElement.remove();
 }
+)
+)
+
+const removeButton = document.querySelector(".removebtn");
+removeButton.addEventListener("click", (event) => {
+if (event.target.tagName === "Button") {
+  const button = event.target;
+  const card = button.parentNode;
+  const display = card.parentNode;
+  if (buttin.textContent === "Remove Album") {
+    display.removeChild(card);
+  }
+}
+})
+
+
+
+
 
 function clear(){
   let titleBox = DOMselectors.title;
